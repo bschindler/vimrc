@@ -49,5 +49,9 @@ set guifont=DejaVu_Sans_Mono_for_Powerline:h9:cANSI
 " fix backspace behavior for windows
 set backspace=indent,eol,start
 
+" Whitespace visualization
+set list
+set listchars=tab:>·,trail:·
+
 " On windows, I have to enable syntax highlighting... grr!
 syntax on
