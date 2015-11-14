@@ -67,6 +67,9 @@ if os == "win"
 	set backspace=indent,eol,start
 	" On windows, I have to enable syntax highlighting... grr!
 	syntax on
+	" remap ctrl-p to use the same command as command-t to make my life
+	" simpler
+	nnoremap <leader>t :CtrlP
 else
 	set t_Co=256
 endif
@@ -96,3 +99,12 @@ set number
 " relative numbers tend to be slow
 " set relativenumber
 
+" Set the mapleader for command-t and others
+let mapleader = ","
+
+" For command-t to work nicely, we filter a few files
+" wildignore also affects opening of files
+set wildignore=*.o,*.bin,*/CMakeFiles/*
+
+" remap ctrl-p to use the same command as command-t to make my life simpler
+nnoremap <leader>t :CtrlP
