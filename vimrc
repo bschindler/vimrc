@@ -93,5 +93,6 @@ set listchars=tab:>·,trail:·
 
 " Configure line numbers
 set number
-set relativenumber
+" relative numbers tend to be slow
+" set relativenumber
 
