@@ -69,9 +69,15 @@ if os == "win"
 	syntax on
 	" remap ctrl-p to use the same command as command-t to make my life
 	" simpler
-	nnoremap <leader>t :CtrlP
+	nmap <leader>t :CtrlP<cr>
 else
 	set t_Co=256
+
+	" Looking up declarations. Needs Ycm so is non-windows right now
+	nmap <leader>g :YcmCompleter GoTo<cr>
+
+	" clang format integration
+	map <C-K> :pyf /usr/share/clang/clang-format.py<cr>
 endif
 
 " Reenable the filetype plugin
@@ -106,5 +112,5 @@ let mapleader = ","
 " wildignore also affects opening of files
 set wildignore=*.o,*.bin,*/CMakeFiles/*
 
-" remap ctrl-p to use the same command as command-t to make my life simpler
-nnoremap <leader>t :CtrlP
+" FSWitch mappings
+nmap <leader>of :FSHere<cr>
