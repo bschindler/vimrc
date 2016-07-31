@@ -61,12 +61,8 @@ call vundle#end()            " required
 if os == "win"
 	" Use a good font for windows
 	set guifont=DejaVu_Sans_Mono_for_Powerline:h9:cANSI
-	" airline wants utf-8 encoding
-	set encoding=utf8
 	" fix backspace behavior for windows
 	set backspace=indent,eol,start
-	" On windows, I have to enable syntax highlighting... grr!
-	syntax on
 	" remap ctrl-p to use the same command as command-t to make my life
 	" simpler
 	nmap <leader>t :CtrlP<cr>
@@ -80,8 +76,14 @@ else
 	map <C-K> :pyf /usr/share/clang/clang-format.py<cr>
 endif
 
+" airline wants utf-8 encoding
+set encoding=utf8
+
 " Reenable the filetype plugin
 filetype plugin indent on
+
+" On windows, I have to enable syntax highlighting... grr!
+syntax enable
 
 " enable search highlighting
 set hlsearch
@@ -89,6 +91,7 @@ set hlsearch
 " airline setup
 " use powerline fonts for the airline
 let g:airline_powerline_fonts = 1
+
 " fix airline not showing on startup
 set laststatus=2
 
@@ -111,6 +114,7 @@ let mapleader = ","
 " For command-t to work nicely, we filter a few files
 " wildignore also affects opening of files
 set wildignore=*.o,*.bin,*/CMakeFiles/*
+
 
 " FSWitch mappings
 nmap <leader>of :FSHere<cr>
