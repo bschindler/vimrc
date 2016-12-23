@@ -2,7 +2,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 function! GetRunningOS()
-	if has("win32") || has("win16") || has("win64") || has("windows")
+	if has("win32") || has("win16") || has("win64")
 		return "win"
 	endif
 	if has("unix")
