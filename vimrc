@@ -53,6 +53,7 @@ if os == "win"
 else
 	" Git plugin not hosted on GitHub
 	Plugin 'git://git.wincent.com/command-t.git'
+
 	" YouCompleteMe
 	Plugin 'Valloric/YouCompleteMe'
 endif
@@ -83,8 +84,8 @@ if os == "win"
 	
 	" Make the cursor work in mintty
 	let &t_ti.="\e[1 q"
-	let &t_SI.="\e[5 q"
-	let &t_EI.="\e[1 q"
+	let &t_SI.="\e[6 q"
+	let &t_EI.="\e[2 q"
 	let &t_te.="\e[0 q"
 else
 	" Looking up declarations. Needs Ycm so is non-windows right now
