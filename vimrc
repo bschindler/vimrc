@@ -6,11 +6,15 @@ function! GetRunningOS()
 		return "win"
 	endif
 	if has("unix")
-		if system('uname')=~'Darwin'
+		if ($MSYSTEM =~? 'MINGW\d\d')
+			return "win"
+		else if system('uname')=~'Darwin'
 			return "mac"
 		else
 			return "linux"
 		endif
+	else
+		return "unknown"
 	endif
 endfunction
 let os=GetRunningOS()
