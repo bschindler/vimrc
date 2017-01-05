@@ -4,11 +4,10 @@ filetype off                  " required
 function! GetRunningOS()
 	if has("win32") || has("win16") || has("win64")
 		return "win"
-	endif
-	if has("unix")
+	elseif has("unix")
 		if ($MSYSTEM =~? 'MINGW\d\d')
 			return "win"
-		else if system('uname')=~'Darwin'
+		elseif (system('uname')=~'Darwin')
 			return "mac"
 		else
 			return "linux"
