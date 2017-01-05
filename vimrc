@@ -91,7 +91,7 @@ if os == "win"
 	"let g:ctrlp_custom_ignore = {
 	"	\ 'dir': '(.svn|bin|bin64)'
 	"}
-	
+
 	" Make the cursor work in mintty
 	let &t_ti.="\e[1 q"
 	let &t_SI.="\e[6 q"
