@@ -41,10 +41,16 @@ Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'derekwyatt/vim-fswitch'
 
 " vim airline
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
 
 " indent-guides
 Plugin 'nathanaelkane/vim-indent-guides'
+
+" clang-format
+Plugin 'rhysd/vim-clang-format'
+
+" Wildignore from gitignore
+Plugin 'vim-scripts/gitignore'
 
 " os-specific config/plugins
 if os == "win"
@@ -91,9 +97,11 @@ else
 	" Looking up declarations. Needs Ycm so is non-windows right now
 	nmap <leader>g :YcmCompleter GoTo<cr>
 
-	" clang format integration
-	map <C-K> :pyf /usr/share/clang/clang-format.py<cr>
 endif
+
+" clang format integration
+let g:clang_format#detect_style_file = 1
+map <C-K> :ClangFormat<cr>
 
 " airline wants utf-8 encoding
 set encoding=utf8
@@ -115,6 +123,8 @@ set hlsearch
 " airline setup
 " use powerline fonts for the airline
 let g:airline_powerline_fonts = 1
+" In general, I use mixed space/tab configuration
+let g:airline#extensions#whitespace#mixed_indent_algo = 2
 
 " fix airline not showing on startup
 set laststatus=2
@@ -137,7 +147,7 @@ set wildmenu
 
 " For command-t to work nicely, we filter a few files
 " wildignore also affects opening of files
-set wildignore=*.o,*.bin,*/CMakeFiles/*
+set wildignore+=*.o,*.dll,*.pdb,*.exe,*.suo,*.obj,*.bin,*/CMakeFiles/*
 
 
 " FSWitch mappings
