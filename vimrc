@@ -76,12 +76,13 @@ let mapleader = ","
 " We need 256 color terminal here
 set t_Co=256
 
+" fix backspace behavior for windows
+set backspace=indent,eol,start
+
 " Now comes configuration. Lets start with the os-specific stuff
 if os == "win"
 	" Use a good font for windows
 	set guifont=DejaVu_Sans_Mono_for_Powerline:h9:cANSI
-	" fix backspace behavior for windows
-	set backspace=indent,eol,start
 	" remap ctrl-p to use the same command as command-t to make my life
 	" simpler
 	nmap <leader>t :CtrlP<cr>
