@@ -55,6 +55,9 @@ Plugin 'rhysd/vim-clang-format'
 " Wildignore from gitignore
 Plugin 'vim-scripts/gitignore'
 
+" vim change lines
+Plugin 'airblade/vim-gitgutter'
+
 " os-specific config/plugins
 if os == "win"
 	" ctrlp
