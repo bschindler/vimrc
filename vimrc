@@ -52,9 +52,6 @@ Plugin 'nathanaelkane/vim-indent-guides'
 " clang-format
 Plugin 'rhysd/vim-clang-format'
 
-" Wildignore from gitignore
-Plugin 'vim-scripts/gitignore'
-
 " vim change lines
 Plugin 'airblade/vim-gitgutter'
 
