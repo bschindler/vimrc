@@ -55,6 +55,13 @@ Plugin 'rhysd/vim-clang-format'
 " vim change lines
 Plugin 'airblade/vim-gitgutter'
 
+" cmake syntax
+Plugin 'nickhutchinson/vim-cmake-syntax'
+
+" Per project vimrc
+Plugin 'LucHermitte/lh-vim-lib'
+Plugin 'LucHermitte/local_vimrc'
+
 " os-specific config/plugins
 if os == "win"
 	" ctrlp
@@ -156,3 +163,7 @@ set wildignore+=*.o,*.dll,*.pdb,*.exe,*.suo,*.obj,*.bin,*/CMakeFiles/*
 
 " FSWitch mappings
 nmap <leader>of :FSHere<cr>
+
+" Let's assume you put all projects you are working on in your
+" " corporation under $HOME/dev/my_corporation/
+call lh#local_vimrc#munge('whitelist', $HOME)
