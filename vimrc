@@ -167,3 +167,8 @@ nmap <leader>of :FSHere<cr>
 " Let's assume you put all projects you are working on in your
 " " corporation under $HOME/dev/my_corporation/
 call lh#local_vimrc#munge('whitelist', $HOME)
+call lh#local_vimrc#filter_list('asklist', 'v:val != $HOME')
+
+" Disable question whether to load $HOME/.ycm_extrac
+let g:ycm_extra_conf_globlist = [ '~/.ycm_extra_conf.py' ]
+
