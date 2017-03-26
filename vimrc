@@ -62,6 +62,9 @@ Plugin 'nickhutchinson/vim-cmake-syntax'
 Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
 
+" Rust support
+Plugin 'rust-lang/rust.vim'
+
 " os-specific config/plugins
 if os == "win"
 	" ctrlp
