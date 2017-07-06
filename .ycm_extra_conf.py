@@ -17,6 +17,7 @@
 
 import os
 import ycm_core
+import glob
 
 # These are the compilation flags that will be used in case there's no
 # compilation database set (by default, one is not set).
@@ -46,6 +47,15 @@ flags = [
 '/usr/local/include',
 '-isystem',
 ]
+
+debug = False
+debug_out_file = open('/tmp/ycm_debug_file.log', 'w+')
+
+def debug_out(string):
+    global debug_out
+    if debug:
+        debug_out_file.write(string + '\n')
+        debug_out_file.flush()
 
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
@@ -122,14 +132,22 @@ def GetCompilationInfoForFile( filename ):
     return database.GetCompilationInfoForFile( filename )
 
 def findProjectDirectory(directory):
+    debug_out("findProjectDirectory...")
     cur_dir = directory
+    project_dir = directory
     while cur_dir:
+        debug_out("testing " + cur_dir)
         cmake_lists_file = os.path.join(cur_dir,  'CMakeLists.txt')
         if os.path.exists(cmake_lists_file):
             project_dir = cur_dir
+
+        (new_dir, head) = os.path.split(cur_dir)
+        if new_dir == cur_dir:
             break
-        (cur_dir, head) = os.path.split(cur_dir)
-    return cur_dir
+        cur_dir = new_dir
+
+    debug_out('using project dir ' +  project_dir)
+    return project_dir
 
 def locateDatabase(directory):
     project_dir = findProjectDirectory(directory)
@@ -145,10 +163,7 @@ def locateDatabase(directory):
             'relwithdebinfo', 
             'minsizerel', 
             'MinSizeRel', 
-            'build-src-Desktop-Debug',
-            'build-src-Desktop-Default',
-            'build-src-Desktop-Release',
-            'build-src-Desktop-Release with Debug Information'
+            'build-*',
             ]
 
     possible_build_dirs = [
@@ -165,10 +180,13 @@ def locateDatabase(directory):
 
         for build_type in build_types:
             full_build_dir = os.path.join(build_dir_base, build_type)
-            if os.path.exists(full_build_dir):
-                database_file = os.path.join(full_build_dir, 'compile_commands.json')
+            debug_out("Testing build root dir " + full_build_dir)
+            paths = glob.glob(full_build_dir)
+            for path in paths:
+                debug_out("Checking build dir" + path)
+                database_file = os.path.join(path, 'compile_commands.json')
                 if os.path.exists(database_file):
-                    return os.path.normpath(full_build_dir)
+                    return os.path.normpath(path)
 
     return None
 
@@ -179,33 +197,33 @@ def FlagsForFile( filename, **kwargs ):
     #global debug_output
     global database
     current_cwd = os.getcwd()
-    #debug_output.write('Getting flags for file: ' + str(filename) + '\n')
-    #debug_output.write('cwd: ' + str(current_cwd) + '\n')
-    #debug_output.flush()
+    debug_out("Getting flags for file: " + str(filename))
+    debug_out('cwd: ' + str(current_cwd))
     if g_cwd != current_cwd:
-        #debug_output.write('Trying to locate database file\n')
+        debug_out('Trying to locate database file')
         g_cwd = current_cwd
         try:
+            debug_out('Locating database...')
             database_dir = locateDatabase(current_cwd)
-            #debug_output.write('Got database dir: ' + database_dir + '\n')
+            debug_out('Got database dir: ' + database_dir)
             if database_dir:
                 database = ycm_core.CompilationDatabase( database_dir )
-                #debug_output.write('Database loaded: ' + str(database.DatabaseSuccessfullyLoaded()) + '\n')
-        except ValueError as v:
+                debug_output('Database loaded: ' + str(database.DatabaseSuccessfullyLoaded()) + '\n')
+        except:
+            type, value, traceback = sys.exc_info()
+            debug_out(traceback)
+            debug_out('Error: ' + value )
             pass
-            #debug_output.write('Error: ' + v + '\n')
-            #debug_output.flush()
     if database:
-        #debug_output.write('Got a database for file: ' + filename + '\n')
+        debug_out('Got a database for file: ' + filename)
         # Bear in mind that compilation_info.compiler_flags_ does NOT return a
         # python list, but a 'list-like' StringVec object
         compilation_info = GetCompilationInfoForFile( filename )
         if not compilation_info:
-            #debug_output.write('No compilation info for file: ' + filename + '\n')
+            debug_out('No compilation info for file: ' + filename)
             return None
 
-        #debug_output.write('Flags: ' + str(len(compilation_info.compiler_flags_)) + '\n')
-        #debug_output.flush()
+        debug_out('Flags: ' + str(len(compilation_info.compiler_flags_)))
         final_flags = MakeRelativePathsInFlagsAbsolute(
             compilation_info.compiler_flags_,
             compilation_info.compiler_working_dir_ )
