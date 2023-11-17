@@ -18,6 +18,9 @@ function! GetRunningOS()
 endfunction
 let os=GetRunningOS()
 
+" Stay on the ruby implementation of command-t
+let g:CommandTPreferredImplementation='ruby'
+
 if os == "win"
 	" set the runtime path to include Vundle and initialize
 	set rtp+=~/vimfiles/bundle/Vundle.vim
@@ -72,9 +75,6 @@ if os == "win"
 else
 	" Git plugin not hosted on GitHub
 	Plugin 'git://git.wincent.com/command-t.git'
-
-	" YouCompleteMe
-	Plugin 'Valloric/YouCompleteMe'
 endif
 
 " All of your Plugins must be added before the following line
@@ -154,7 +154,7 @@ set listchars=tab:>·,trail:·
 " Configure line numbers
 set number
 " relative numbers tend to be slow
-" set relativenumber
+set relativenumber
 
 " code completion for help
 set wildmenu
