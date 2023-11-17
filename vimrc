@@ -68,6 +68,9 @@ Plugin 'LucHermitte/local_vimrc'
 " Rust support
 Plugin 'rust-lang/rust.vim'
 
+" Tmux integration
+Plugin 'christoomey/vim-tmux-navigator'
+
 " os-specific config/plugins
 if os == "win"
 	" ctrlp
